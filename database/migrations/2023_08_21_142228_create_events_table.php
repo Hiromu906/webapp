@@ -15,16 +15,17 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->varchar('title',255);
+            $table->unsignedInteger('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('title',255);
             $table->datetime('start_time')->nullable(false);
             $table->datetime('end_time')->nullable(false);
-            $table->varchar('location',255);
-            $table->text('description');
+            $table->string('location',255)->nullable();
+            $table->text('description')->nullable();
             $table->timestamp('send_at');
-            $table->tinyInteger('is_release',1);
+            $table->tinyInteger('is_release')->default(0);
             $table->timestamps();
-            $table->softDeketes();
+            $table->softDeletes();
+            
         });
     }
 
