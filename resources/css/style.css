@@ -1,0 +1,11 @@
+label {
+    color: blue;
+}
+.textarea-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.textarea-wrapper label {
+    margin-right: 10px; /* ラベルとテキストエリアの間隔 */
+}
