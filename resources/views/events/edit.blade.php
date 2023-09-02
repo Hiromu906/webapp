@@ -27,7 +27,7 @@
                 <input type='datetime-local' name="event[end_time]" value="{{ $event->end_time->format('Y-m-d\TH:i') }}" /><br>
                 
                 <label for="location">場所</label>
-                <input type="text" name="event[location]" {{ $event->location }}/></br>
+                <input type="text" name="event[location]" value="{{ $event->location }}"/></br>
                 
                 <label for="description">詳細情報・メモ</label>
                 <textarea name="event[description]" cols='30' rows='10'>{{ $event->description }}</textarea><br>

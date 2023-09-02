@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\FriendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,12 @@ Route::controller(EventController::class)->middleware(['auth'])->group(function(
     Route::delete('/events/{event}','delete')->name('delete');
     Route::get('/events/{event}/edit','edit')->name('edit');
    
+});
+Route::controller(UserController::class)->middleware(['auth'])->group(function(){
+    Route::get('/users','index')->name('user');
+    Route::get('/users/request','show')->name('show');
+    Route::get('/send-friend-request', 'request')->name('request'); 
+    Route::post('/send-friend-request', 'request')->name('request'); 
 });
 Route::get('/', function () {
     return view('welcome');

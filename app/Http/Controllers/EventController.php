@@ -11,7 +11,7 @@ class EventController extends Controller
     public function index(Event $event)//インポートしたEVENTをインスタンス化して$eventとして使用。
     {
         $events=Event::where('user_id',auth()->id())->paginate(4);
-        return view('events.index',compact('events'));//blade内で使う変数'events'と設定。'events'の中身にgetを使い、インスタンス化した$eventを代入。
+        return view('events.index',compact('events'));
     }
     public function show(Event $event){
         return view('events.show')->with([

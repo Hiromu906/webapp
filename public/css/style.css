@@ -9,3 +9,6 @@ label {
 .textarea-wrapper label {
     margin-right: 10px; /* ラベルとテキストエリアの間隔 */
 }
+h1{
+    text-align: center;
+}
