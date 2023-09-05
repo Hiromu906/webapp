@@ -10,10 +10,9 @@
     </head>
     </x-slot>
     <body>
-        <h1>フォロワー一覧</h1>
-        
-        @foreach($followers as $follower)
-            <a href="/users/followers/{{$follower->id}}">{{ $follower->name }}</a><br>
+        <h1>フォロー一覧</h1>
+        @foreach($followees as $followee)
+           <a href="/users/followees/{{$followee->id}}">{{ $followee->name }}</a><br>
         @endforeach
         </tbody>
         </table>

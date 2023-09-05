@@ -19,12 +19,13 @@
                 </h2>
                 <p class='body'>{{ $event->body }}</p>
                 <p class='start_time'>{{ $event->start_time }}</p>
+                <a href="events/{{ $event->id }}/share">共有</a>
             </div>
             @endforeach
             <div class='paginate'>
                 {{ $events->links() }}
             </div>
-            <a href='/events/create'>create</a>
+            <a href='/events/create'>新規予定作成</a>
             <div>ログインユーザー:{{ Auth::user()->name }}</div>
         </div>
     </body>

@@ -18,7 +18,8 @@ class Event extends Model
     'location',
     'description',
     'send_at',
-    'is_release'
+    'is_release',
+    'is_template',
     ];
     protected $casts = [
         'title' => 'string',
@@ -29,6 +30,7 @@ class Event extends Model
         'description' => 'string',
         'send_at' => 'datetime',
         'is_release' => 'boolean',
+        'is_template' => 'boolean',
     ];
     public function getPagenateByLimit(int $limit_count = 5){// updated_atで降順に並べたあと、limitで件数制限をかける
         return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
