@@ -11,7 +11,10 @@
     <body>
         <h1>ユーザー</h1>
         <div>ユーザー名:{{ Auth::user()->name }}</div>
-        <div>フォロワー:{{ $friend->id }}</div>
+        
+        <a href="users/followees">フォロー  :{{ $followees }}</a><br>
+        <a href="users/followers">フォロワー:{{ $followers }}</a><br>
+        
         <a href="/users/request">フォローリクエスト</a>
     </body>
     </x-app-layout>

@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::table('shared_events', function (Blueprint $table) {
+            $table->unsignedBigInteger('sharing_user_id');
+            $table->foreign('sharing_user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('shared_events', function (Blueprint $table) {
+            $table->dropForeign(['sharing_user_id']);
+            $table->dropColumn('sharing_user_id');
+        });
     }
 };

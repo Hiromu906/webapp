@@ -5,17 +5,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Friend;
+use App\Models\Event;
+use Carbon\Carbon;
 class UserController extends Controller
 {
      public function index(Friend $friend){
         $userId = Auth::id();
-        $followerIds=Friend::where('followee_id',$userId)->pluck('follower_id');
-        $followers = User::whereIn('id',$followerIds)->get();
-        return view('users.index',compact('friend'));
+        
+        $followers=Friend::where('followee_id',$userId)->count();
+        $followees=Friend::where('follower_id',$userId)->count();
+        return view('users.index',compact('followees','followers'));
     }
-    public function show(){
+    
+    public function displayRequest(){
         return view('users.request');
     }
+    
     public function request(Request $request, Friend $friend){
         // フォームから送信されたユーザー名を取得
         $username = $request->input('user.name');
@@ -45,5 +50,51 @@ class UserController extends Controller
         }
     }
     
-   
+    public function followers(){
+        // ログインユーザーのフォロワー一覧を取得
+        $userId = Auth::id();
+        $followersId=Friend::where('followee_id',$userId)->pluck('follower_id')->toArray();
+        $followers=User::whereIn('id',$followersId)->get();
+        return view('users.follower', compact('followers'));
+    }
+    
+    public function followees(){
+        // ログインユーザーのフォロー一覧を取得
+        $userId = Auth::id();
+        $followeesId=Friend::where('follower_id',$userId)->pluck('followee_id')->toArray();
+        $followees=User::whereIn('id',$followeesId)->get();
+        return view('users.followee', compact('followees'));
+    }
+    
+    public function followerShow($id){
+        $user = User::find($id);
+        $event = Event::where('user_id',$id)->where('is_release', 1)->get();
+        if ($event->isEmpty()) {
+            $message = '予定が存在しません。';
+            return view('users.follower_profile', compact('user', 'message'));
+        }
+        foreach ($event as $eventItem) {
+            // データベースから日時データを取得（例：$eventItem->start_time
+            $datetime = $eventItem->start_time;
+            // Carbonを使用して年月日を取得
+            $date = Carbon::parse($datetime)->format('Y年m月d日');
+        }
+        return view('users.follower_profile', compact('user','event','date'));
+    }
+    
+   public function followeeShow($id){
+        $user = User::find($id);
+        $event = Event::where('user_id',$id)->where('is_release', 1)->get();
+        if ($event->isEmpty()) {
+            $message = '予定が存在しません。';
+            return view('users.followee_profile', compact('user', 'message'));
+        }
+        foreach ($event as $eventItem) {
+            // データベースから日時データを取得（例：$eventItem->start_time
+            $datetime = $eventItem->start_time;
+            // Carbonを使用して年月日を取得
+            $date = Carbon::parse($datetime)->format('Y年m月d日');
+        }
+        return view('users.followee_profile', compact('user','event','date'));
+    }
 }
