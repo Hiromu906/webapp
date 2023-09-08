@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Friend;
 use App\Models\Event;
+use App\Models\SharedEvent;
 use Carbon\Carbon;
 class UserController extends Controller
 {
@@ -55,6 +56,7 @@ class UserController extends Controller
         $userId = Auth::id();
         $followersId=Friend::where('followee_id',$userId)->pluck('follower_id')->toArray();
         $followers=User::whereIn('id',$followersId)->get();
+        
         return view('users.follower', compact('followers'));
     }
     
@@ -68,6 +70,7 @@ class UserController extends Controller
     
     public function followerShow($id){
         $user = User::find($id);
+        $userId = Auth::id();
         $event = Event::where('user_id',$id)->where('is_release', 1)->get();
         if ($event->isEmpty()) {
             $message = '予定が存在しません。';
@@ -79,11 +82,14 @@ class UserController extends Controller
             // Carbonを使用して年月日を取得
             $date = Carbon::parse($datetime)->format('Y年m月d日');
         }
-        return view('users.follower_profile', compact('user','event','date'));
+        $shareEventsId = sharedEvent::where('sharing_user_id',$userId)->where('shared_user_id',$id)->pluck('event_id')->toArray();
+        $shareEvents = Event::whereIn('id',$shareEventsId)->get();
+        return view('users.follower_profile', compact('user','event','date','shareEvents'));
     }
     
-   public function followeeShow($id){
+    public function followeeShow($id){
         $user = User::find($id);
+        $userId = Auth::id();
         $event = Event::where('user_id',$id)->where('is_release', 1)->get();
         if ($event->isEmpty()) {
             $message = '予定が存在しません。';
@@ -95,6 +101,43 @@ class UserController extends Controller
             // Carbonを使用して年月日を取得
             $date = Carbon::parse($datetime)->format('Y年m月d日');
         }
-        return view('users.followee_profile', compact('user','event','date'));
+        
+        $shareEventsId = sharedEvent::where('sharing_user_id',$userId)->where('shared_user_id',$id)->pluck('event_id')->toArray();
+        if($shareEventsId == null){
+            $message2 = '共有中の予定はありません。';
+            return view('users.followee_profile', compact('user','event','date','message2'));
+        }
+        $shareEvents = Event::whereIn('id',$shareEventsId)->get();
+        
+        return view('users.followee_profile', compact('user','event','date','shareEvents'));
+    }
+    
+    public function showShareEvents(){
+        $user = Auth::id();
+        $shareEventsId = SharedEvent::where('sharing_user_id',$user)->get('event_id');
+        $shareEvents = Event::whereIn('id',$shareEventsId)->get();
+        
+        if($shareEvents->isempty()){
+            $message = '共有中の予定はありません。';
+            return view('users.sharing_events',compact('message'));
+        }
+        return view('users.sharing_events',compact('shareEvents'));
+    }
+    
+    public function showSharedEvents(){
+        $user = Auth::id();
+        $sharedEventsId = SharedEvent::where('shared_user_id',$user)->get('event_id');
+        $sharedEvents = Event::whereIn('id',$sharedEventsId)->get();
+        return view('users.shared_events',compact('sharedEvents'));
+    }
+    
+    public function showShareEvent($id){
+        $event = Event::where('id',$id)->first();
+        $shareUsers = SharedEvent::where('event_id',$id)->get('shared_user_id');
+        $users = User::whereIn('id',$shareUsers)->get();
+        return view('users.show_event')->with([
+            'event' => $event,
+            'sharedUsers' => $users,
+            ]);
     }
 }
