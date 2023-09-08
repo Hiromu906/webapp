@@ -16,10 +16,18 @@
         @if(isset($event))
             @foreach($event as $eventItem)
             <div>予定タイトル:{{ $eventItem->title }}</div>
-            <div>予定日時:{{ $date }}</div>
+            <div>予定開始日時:{{ $date }}</div>
             @endforeach
         @else
             <p> {{ $message }} </p>
+        @endif
+        <h1>このユーザーと共有中の予定</h1>
+        @if(isset($shareEvents))
+            @foreach($shareEvents as $shareEvent)
+                <div>予定タイトル:{{ $shareEvent->title }}</div>
+            @endforeach
+        @else
+            <p> {{ $message2 }}</p>
         @endif
         <div class="footer">
             <a href="/users/followees">戻る</a>

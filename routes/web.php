@@ -31,6 +31,9 @@ Route::controller(EventController::class)->middleware(['auth'])->group(function(
 });
 Route::controller(UserController::class)->middleware(['auth'])->group(function(){
     Route::get('/users','index')->name('user');
+    Route::get('/users/shareEvents','showShareEvents')->name('showShareEvents');
+    Route::get('/users/sharedEvents','showSharedEvents')->name('showSharedEvents');
+    Route::get('/users/shareEvents/{id}','showShareEvent')->name('showShareEvent');
     Route::get('/users/request','displayRequest')->name('displayRequest');
     Route::get('/users/followers', 'followers')->name('followers');
     Route::get('/users/followees', 'followees')->name('followees');

@@ -12,3 +12,14 @@ label {
 h1{
     text-align: center;
 }
+.alert-success {
+    color: #F00; /* 文字色 */
+}
+.deleteButton {
+    background-color: red; /* ボタンの背景色 */
+    color: white; /* ボタンの文字色 */
+    border: none; /* ボーダーをなくす */
+    padding: 10px 20px; /* パディング（余白）の設定 */
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    /* 他にも必要なスタイリングがあれば追加 */
+}

@@ -21,6 +21,14 @@
         @else
             <p> {{ $message }} </p>
         @endif
+        <h1>このユーザーと共有中の予定</h1>
+        @if(isset($shareEvents))
+            @foreach($shareEvents as $shareEvent)
+                <div>予定タイトル:{{ $shareEvent->title }}</div>
+            @endforeach
+        @else
+            <p>共有中の予定はありません</p>
+        @endif
         <div class="footer">
             <a href="/users/followers">戻る</a>
         </div>

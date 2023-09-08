@@ -23,11 +23,17 @@
                 <p>場所:{{ $event->location }}</p>
                 <p>通知日:{{ $event->send_at }}</p>
                 <p>公開状況:{{ $event->is_release == 1 ? '公開' : '非公開' }}</p>
+                
+                <p>共有相手:</p>
+                    <ul>
+                        @foreach($sharedUsers as $sharedUser)
+                        <li>{{ $sharedUser->name }}</li>
+                        @endforeach
+                    </ul>
             </div>
         </div>
-        <div class="edit"><a href="/events/{{ $event->id }}/edit">edit</a></div>
         <div class="footer">
-            <a href="/events">戻る</a>
+            <a href="/users/shareEvents">戻る</a>
         </div>
     </body>
     </x-app-layout>

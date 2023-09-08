@@ -15,7 +15,10 @@
         <a href="users/followees">フォロー  :{{ $followees }}</a><br>
         <a href="users/followers">フォロワー:{{ $followers }}</a><br>
         
-        <a href="/users/request">フォローリクエスト</a>
+        <a href="/users/request">フォローリクエスト</a><br>
+        
+        <a href="/users/shareEvents">共有中のイベント</a><br>
+        <a href="/users/sharedEvents">共有されているイベント</a><br>
     </body>
     </x-app-layout>
 </html>
