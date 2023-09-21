@@ -6,32 +6,43 @@
         <meta charset="utf-8">
         <title>Events List</title>
         <!-- Fonts -->
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('ユーザー') }}
+        </h2>
     </head>
     </x-slot>
     <body>
-        <h1>共有中の予定一覧</h1>
-        @if($shareEvents->isNotEmpty())
-            <div class='shareEvents'>
-                @foreach($shareEvents as $shareEvent)
-                <div class='event'>
-                    <h2 class='title'>
-                        <a href="/users/shareEvents/{{ $shareEvent->id }}">{{ $shareEvent->title }}</a>
-                    </h2>
-                    <p class='start_time'>{{ $shareEvent->start_time }}</p>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <h1>共有中の予定一覧</h1><br>
+                        @if($shareEvents->isNotEmpty())
+                            <div class='shareEvents'>
+                                @foreach($shareEvents as $shareEvent)
+                                <div class='event'>
+                                    <h2 class='title'>
+                                    <a href="/users/shareEvents/{{ $shareEvent->id }}">{{ $shareEvent->title }}</a>
+                                    </h2>
+                                    <p class='start_time'>{{ $shareEvent->start_time }}</p>
+                                </div>
+                                <br>
+                                @endforeach
+                            </div>
+                            <div class="footer">
+                                <a href="/users">戻る</a>
+                            </div>
+                        @else
+                            <p>共有中の予定はありません</p>
+                            <div class="footer">
+                                <a href="/users">戻る</a>
+                            </div>
+                        @endif
+                    </div>
                 </div>
-                @endforeach
-                <div>ログインユーザー:{{ Auth::user()->name }}</div>
             </div>
-            <div class="footer">
-                <a href="/users">戻る</a>
-            </div>
-        @else
-            <p>共有中の予定はありません</p>
-            <div class="footer">
-                <a href="/users">戻る</a>
-            </div>
-        @endif
+        </div>
     </body>
     </x-app-layout>
 </html>

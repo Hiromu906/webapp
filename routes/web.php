@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FriendController;
-
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\CalendarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,10 @@ use App\Http\Controllers\FriendController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::controller(EventController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('index');
     Route::get('/events', 'index')->name('index');
@@ -34,6 +39,7 @@ Route::controller(UserController::class)->middleware(['auth'])->group(function()
     Route::get('/users/shareEvents','showShareEvents')->name('showShareEvents');
     Route::get('/users/sharedEvents','showSharedEvents')->name('showSharedEvents');
     Route::get('/users/shareEvents/{id}','showShareEvent')->name('showShareEvent');
+    Route::get('/users/sharedEvents/{id}','showSharedEvent')->name('showSharedEvent');
     Route::get('/users/request','displayRequest')->name('displayRequest');
     Route::get('/users/followers', 'followers')->name('followers');
     Route::get('/users/followees', 'followees')->name('followees');
@@ -42,13 +48,15 @@ Route::controller(UserController::class)->middleware(['auth'])->group(function()
     Route::get('/send-friend-request', 'request')->name('request'); 
     Route::post('/send-friend-request', 'request')->name('request'); 
 });
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(SettingController::class)->middleware(['auth'])->group(function(){
+    Route::get('/settings', 'index')->name('setting');
+});
+Route::controller(CalendarController::class)->middleware(['auth'])->group(function(){
+    Route::get('/dashboard/month', 'show')->name('show');
+    Route::get('/dashboard/today', 'showTodayEvents')->name('showTodayEvents');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/get-user-info/{username}', 'FriendController@getUserInfo');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

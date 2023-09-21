@@ -12,7 +12,7 @@ class EventController extends Controller
 {
     public function index(Event $event)//インポートしたEVENTをインスタンス化して$eventとして使用。
     {
-        $events=Event::where('user_id',auth()->id())->paginate(4);
+        $events=Event::where('user_id',Auth()->user()->user_id)->paginate(4);
         return view('events.index',compact('events'));
     }
     
@@ -23,22 +23,22 @@ class EventController extends Controller
     }
     
     public function create(){
-        $templates = Event::withTrashed()->where('is_template', 1)->get();
+        $templates = Event::withTrashed()->where('user_id',Auth()->user()->user_id)->where('is_template', 1)->get();
         session()->forget('templates');
         return view('events.create',compact('templates'));
         
     }
     
     public function share(User $user,Event $event){
-        $userId = Auth::id();
+        $userId = Auth()->user()->user_id;
         $followeesId=Friend::where('followee_id',$userId)->pluck('follower_id')->toArray();
-        $receivers = User::whereIn('id',$followeesId)->get();
-        return view('events.share',compact('receivers','event'));
+        $receivers = User::whereIn('user_id',$followeesId)->get();
+        return view('events.share',compact('receivers','event'))->with('success','予定を共有しました。');
     }
     
     public function store(EventRequest $request, Event $event){
         $input = $request['event'];
-        $input['user_id'] = Auth::id();
+        $input['user_id'] = Auth()->user()->user_id;
         $event->fill($input)->save(); // 取得したデータでモデルを更新
         return redirect('/events/' . $event->id);
         session()->put('templateData', null);
@@ -85,10 +85,24 @@ class EventController extends Controller
     }
     
     public function shareEvent(Request $request,Event $event,SharedEvent $sharedEvent){
-        $userId = Auth::id();
+        $userId = Auth()->user()->user_id;
+        $user = User::where('id', $request->input('shareUser'))->first();
+        
+        $existingShare = SharedEvent::where('sharing_user_id', $user->user_id)
+                               ->where('shared_user_id', $userId)
+                               ->where('event_id', $event->id)
+                               ->first();
+        $existingShare = SharedEvent::where('sharing_user_id', $userId)
+                               ->where('shared_user_id', $user->user_id)
+                               ->where('event_id', $event->id)
+                               ->first();
+        if ($existingShare) {
+            // すでに共有されている場合の処理（例: エラーメッセージを表示）
+            return redirect()->back()->with('error', 'すでに共有されています。');
+        }
         $sharedEvent -> event_id = $event->id;
         $sharedEvent -> sharing_user_id = $userId;
-        $sharedEvent -> shared_user_id = $request->input('shareUser');
+        $sharedEvent -> shared_user_id = $user->user_id;
         $sharedEvent -> save();
         
         return redirect('/events');

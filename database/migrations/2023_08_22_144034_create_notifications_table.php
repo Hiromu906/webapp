@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->unsignedInteger('notice_user_id')->references('id')->on('events')->onDelete('cascade');
+            $table->string('notice_user_id')->references('user_id')->on('user')->onDelete('cascade');
             $table->text('message')->nullable(false);
             $table->datetime('timestamp')->nullable(false);
         });

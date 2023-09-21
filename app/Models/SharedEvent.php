@@ -16,7 +16,7 @@ class SharedEvent extends Model
     ];
     protected $casts = [
         'event_id'=> 'integer',
-        'shared_user_id'=> 'integer',
-        'sharing_user_id'=>'integer',
+        'shared_user_id'=> 'string',
+        'sharing_user_id'=>'string',
     ];
 }

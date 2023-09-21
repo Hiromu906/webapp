@@ -23,7 +23,7 @@ class Event extends Model
     ];
     protected $casts = [
         'title' => 'string',
-        'user_id' => 'integer',
+        'user_id' => 'string',
         'start_time' => 'datetime',
         'end_time' => 'datetime',
         'location' => 'string',
