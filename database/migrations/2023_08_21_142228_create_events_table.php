@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->string('title',255);
             $table->datetime('start_time')->nullable(false);
             $table->datetime('end_time')->nullable(false);

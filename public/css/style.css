@@ -1,5 +1,52 @@
+h1{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+h2 {
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.event {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+.events {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+.title {
+    
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.content {
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.template {
+    text-align: center;
+    font-family: Arial,sans-serif;
+}
+
 label {
-    color: blue;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
 }
 .textarea-wrapper {
     display: flex;
@@ -9,17 +56,202 @@ label {
 .textarea-wrapper label {
     margin-right: 10px; /* ラベルとテキストエリアの間隔 */
 }
-h1{
-    text-align: center;
-}
+
 .alert-success {
     color: #F00; /* 文字色 */
 }
+
+ul li {
+    list-style: none;
+}
+
+label {
+    margin-right: 30px;
+    width:100px;
+    float: left;
+}
+
+ul {
+    width: 500px;
+    margin: 0 auto;
+}
+
+p {
+    margin-top: 10px;
+}
+
+.footer {
+    font-weight: bold;
+    text-align: center;
+}
+
+.edit-footer {
+    display: flex;
+    justify-content: center; /* 要素を均等に配置 */
+    text-align: center;
+}
+
+.edit-footer .edit,
+.edit-footer .footer {
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    font-weight: bold;
+    margin: 0 10px; /* 間隔を狭める */
+    padding: 10px 20px; /* パディング（余白）の設定 */
+}
+
+.submit-footer {
+    display: flex;
+    justify-content: center; /* 要素を均等に配置 */
+    text-align: center;
+}
+
+.submit-footer .submit,
+.submit-footer .backButton {
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 10px; /* 間隔を狭める */
+    padding: 10px 20px; /* パディング（余白）の設定 */
+}
+
+.event-footer {
+    display: flex;
+    justify-content: center; /* 要素を均等に配置 */
+    text-align: center;
+}
+
+
+.event-footer .shareButton,
+.event-footer .deleteButton{
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    font-weight: bold;
+    margin: 0 10px; /* 間隔を狭める */
+    padding: 10px 20px; /* パディング（余白）の設定 */
+}
+
+.content {
+    text-align: center;
+}
+
+.content__event {
+    display: flex;
+    flex-direction: column;
+}
+.info-item {
+    margin: 0;
+    padding: 5px 0;
+}
+.shareButton {
+    border: none; /* ボーダーをなくす */
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    padding: 10px 20px; /* パディング（余白）の設定 */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 60px;
+}
+.submitButton {
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 60px;
+}
+.backButton {
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+/* 削除ボタン */
 .deleteButton {
-    background-color: red; /* ボタンの背景色 */
-    color: white; /* ボタンの文字色 */
+    border: none; /* ボーダーをなくす */
+    color: red; /* ボタンの文字色 */
+    cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
+    padding: 10px 20px; /* パディング（余白）の設定 */
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+/* 共有ボタン */
+.shareLink {
+    border: none; /* ボーダーをなくす */
+    cursor: pointer;  /* マウスカーソルの形状をポインターに変更 */
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* テンプレートデータ適用ボタン */
+.templateButton{
+    color: blue; /* ボタンの文字色 */
     border: none; /* ボーダーをなくす */
     padding: 10px 20px; /* パディング（余白）の設定 */
     cursor: pointer; /* マウスカーソルの形状をポインターに変更 */
-    /* 他にも必要なスタイリングがあれば追加 */
+    font-weight: bold;
+    
+}
+.alert-danger {
+    color: red;
+}
+
+.user-info{
+    font-size: 20px;
+    padding: 10px 20px; /* パディング（余白）の設定 */
+    text-align: center;
+    font-weight: bold;
+}
+
+/*マルチカラム関連*/
+.wrapper{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.main-area{
+    flex-basis: 75%;
+}
+
+.sub-area{
+    flex-basis: 15%;
+    width: 25%;
+}
+
+/*サイドバー*/
+.sidebar {
+    margin: 3rem 0;
+}
+
+.side-list-title{
+    cursor: pointer;  /* マウスカーソルの形状をポインターに変更 */ 
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.followee-list {
+    font-weight: bold;
+    text-align: center;
+}
+
+.followee-profle {
+    font-weight: bold;
+    text-align: center;
+}
+
+.follower-list {
+    font-weight: bold;
+    text-align: center;
+}
+
+.request {
+    text-align: center;
+}
+.name-input {
+    width: 240px;
+    margin-left: 320px;
+}
+.request-input {
+    margin-right: 350px;
+    height: 24px;
 }

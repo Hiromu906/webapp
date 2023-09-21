@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('shared_events', function (Blueprint $table) {
-            $table->unsignedBigInteger('sharing_user_id');
-            $table->foreign('sharing_user_id')->references('id')->on('users');
+            $table->string('sharing_user_id');
+            $table->foreign('sharing_user_id')->references('user_id')->on('users');
         });
     }
 

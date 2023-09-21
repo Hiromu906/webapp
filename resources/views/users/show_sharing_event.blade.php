@@ -7,9 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Events</title>
         <!-- Fonts -->
-        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../../css/style.css">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('予定管理') }}
+            {{ __('ユーザー') }}
         </h2>
     </head>
     </x-slot>
@@ -23,21 +23,24 @@
                         </h1>
                         <div class="content">
                             <div class="content__event">
-                                <p class="info-item">詳細情報:{{ $event->description }}</p>
-                                <p class="info-item">開始時間:{{ $event->start_time }}</p>
-                                <p class="info-item">終了時間:{{ $event->end_time }}</p>
-                                <p class="info-item">場所    :{{ $event->location }}</p>
-                                <p class="info-item">通知日  :{{ $event->send_at }}</p>
-                                <p class="info-item">公開状況:{{ $event->is_release == 1 ? '公開' : '非公開' }}</p>
+                                <h2>詳細情報</h2>
+                                <p>{{ $event->description }}</p>
+                                <p>開始時間:{{ $event->start_time }}</p>
+                                <p>終了時間:{{ $event->end_time }}</p>
+                                <p>場所:{{ $event->location }}</p>
+                                <p>通知日:{{ $event->send_at }}</p>
+                                <p>公開状況:{{ $event->is_release == 1 ? '公開' : '非公開' }}</p>
+                
+                                <p>共有相手</p>
+                                <ul>
+                                    @foreach($sharedUsers as $sharedUser)
+                                    <li>{{ $sharedUser->name }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
-                        <div class="edit-footer">
-                            <div class="edit">
-                                <a href="/events/{{ $event->id }}/edit">編集</a>
-                            </div>
-                            <div class="footer">
-                                <a href="/events">戻る</a>
-                            </div>
+                        <div class="footer">
+                            <a href="/users/shareEvents">戻る</a>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,14 @@
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-
+    
+        <!-- user_id -->
+        <div class="mt-4">
+            <x-input-label for="user_id" :value="__('User_Id')" />
+            <x-text-input id="user_id" class="block mt-1 w-full" type="text" name="user_id" :value="old('user_id')" required autocomplete="userid" />
+            <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
+        </div>
+        
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />

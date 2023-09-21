@@ -15,8 +15,8 @@ class Friend extends Model
         'follower_id',
     ];
     protected $casts = [
-        'followee_id'=> 'integer',
-        'follower_id'=> 'integer',
+        'followee_id'=> 'string',
+        'follower_id'=> 'string',
     ];
     public $timestamps = false;
     public function follower()

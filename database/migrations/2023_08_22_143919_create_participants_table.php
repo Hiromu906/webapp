@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->unsignedInteger('parti_user_id')->references('id')->on('events')->onDelete('cascade');
+            $table->string('parti_user_id')->references('user_id')->on('user')->onDelete('cascade');
         });
     }
 

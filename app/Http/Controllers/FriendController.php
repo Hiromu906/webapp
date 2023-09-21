@@ -9,14 +9,20 @@ class FriendController extends Controller
 {
     public function follower(Friend $friend){
         // ログインしているユーザーのIDを取得
-        $userId = Auth::id();
+        $userId = Auth->user()->user_id;
         // フォローしている友達のリストを取得
         $friends = Friend::where('followee_id', $userId)->get();
         // ここで友達の情報を取得する処理を行う
         return view('users.follower', compact('friends'));
     }
+    
     public function request(){
         return view('users.request');
+    }
+    
+    public function getUserInfo($username) {
+        $user = User::where('user_id', $username)->first();
+        return response()->json($user);
     }
  
 }
